@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mall_service</artifactId>
+        <groupId>com.ytz.mall</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <description>搜索</description>
+
+    <artifactId>mall_service_search</artifactId>
+
+    <dependencies>
+        <!--依赖search api-->
+        <dependency>
+            <groupId>com.ytz.mall</groupId>
+            <artifactId>mall_service_search_api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-collections4</artifactId>-->
+<!--            <version>4.1</version>-->
+<!--        </dependency>-->
+
+    </dependencies>
+</project>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mall_common_db" />
+        <module name="mall_service_goods_api" />
+        <module name="mall_common" />
+        <module name="mall_service_goods" />
+        <module name="mall_service_content_api" />
+        <module name="mall_eureka" />
+        <module name="mall_service_canal" />
+        <module name="mall_service_search_api" />
+        <module name="mall_service_content" />
+        <module name="mall_service_search" />
+        <module name="mall_service_file" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mall_eurka" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mall_eureka" options="" />
+      <module name="mall_gateway" options="" />
+    </option>
+  </component>
+</project>
