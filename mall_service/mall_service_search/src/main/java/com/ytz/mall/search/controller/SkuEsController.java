@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @ClassName: SkuEsController
- * @Description: TODO
+ * @Description: TODO Sku检索
  * @author: yangtz
  * @date: 2020/10/21
  * @Version: V1.0

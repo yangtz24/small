@@ -19,6 +19,7 @@ import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
@@ -29,6 +30,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName: SkuServiceImpl
@@ -79,7 +81,7 @@ public class SkuEsServiceImpl implements SkuEsService {
     public Map<String, Object> findByCondotion(Map<String, String> searchMap) {
 
         if (CollUtil.isEmpty(searchMap)) {
-            throw new RuntimeException("searchMap is null");
+            searchMap = new ConcurrentHashMap<>();
         }
 
         //1.获取到关键字
@@ -158,7 +160,7 @@ public class SkuEsServiceImpl implements SkuEsService {
             String[] split = price.split("-");
             //过滤范围查询
             //0<=price<=500
-            if(!split[1].equals("*")) {
+            if(!"*".equals(split[1])) {
                 boolQueryBuilder.filter(QueryBuilders.rangeQuery("price").from(split[0], true).to(split[1], true));
             }else{
                 boolQueryBuilder.filter(QueryBuilders.rangeQuery("price").gte(split[0]));
@@ -180,9 +182,11 @@ public class SkuEsServiceImpl implements SkuEsService {
         String pageNum1 = searchMap.get("pageNum");
         if (StrUtil.isBlank(pageNum1)) {
             pageNum1 = "1";
-        }String pageSize1 = searchMap.get("pageSize");
+        }
+
+        String pageSize1 = searchMap.get("pageSize");
         if (StrUtil.isBlank(pageSize1)) {
-            pageNum1 = "20";
+            pageSize1 = "20";
         }
         int pageNum = Integer.parseInt(pageNum1);
         int pageSize = Integer.parseInt(pageSize1);
@@ -192,8 +196,8 @@ public class SkuEsServiceImpl implements SkuEsService {
 
         //排序操作
         //获取排序的字段 和要排序的规则
-        String sortField = searchMap.get("sortField");//price
-        String sortRule = searchMap.get("sortRule");//DESC ASC
+        String sortField = searchMap.get("sortField");
+        String sortRule = searchMap.get("sortRule");
         if(!StringUtils.isEmpty(sortField) && !StringUtils.isEmpty(sortRule)) {
             //执行排序
             nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort(sortField).order(sortRule.equalsIgnoreCase("ASC")? SortOrder.ASC:SortOrder.DESC));
@@ -230,6 +234,11 @@ public class SkuEsServiceImpl implements SkuEsService {
         //总记录数
         long totalElements = skuInfos.getTotalElements();
 
+        // 分页参数获取
+        Pageable pageable = nativeSearchQuery.getPageable();
+        int pageSize2 = pageable.getPageSize();
+        int pageNumber = pageable.getPageNumber();
+
         Map<String, Object> resultMap = new HashMap<>();
         //商品分类的列表数据
         resultMap.put("categoryList", categoryList);
@@ -240,6 +249,8 @@ public class SkuEsServiceImpl implements SkuEsService {
         resultMap.put("rows", content);
         resultMap.put("total", totalElements);
         resultMap.put("totalPages", totalPages);
+        resultMap.put("pageNum",pageNumber);
+        resultMap.put("pageSize",pageSize2);
         return resultMap;
     }
 
@@ -296,7 +307,6 @@ public class SkuEsServiceImpl implements SkuEsService {
         if (stringTermsCategory != null) {
             for (StringTerms.Bucket bucket : stringTermsCategory.getBuckets()) {
                 String keyAsString = bucket.getKeyAsString();
-                System.out.println(keyAsString);//就是商品分类的数据
                 categoryList.add(keyAsString);
             }
         }
