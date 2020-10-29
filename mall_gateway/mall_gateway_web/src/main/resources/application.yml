@@ -25,12 +25,24 @@ spring:
 #           路由配置规则
           predicates:
 #            - Host=cloud.mall.com**  # 域名规则配置
-            - Path=/album/**  # 请求路径
-#        - name: RequestRateLimiter       #请求数限流 名字不能随便写 ，使用默认的facatory
-#        - args:
-#        - key-resolver: "#{@ipKeyResolver}"  # 用户的唯一标识
-#        - redis-rate-limiter.replenishRate: 1  # 每秒有1个请求
-#        - redis-rate-limiter.burstCapacity: 1   # 并发4个请求
+            - Path=/**  # 请求路径
+           #请求数限流 名字不能随便写 ，使用默认的facatory
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@ipKeyResolver}"  # 用户的唯一标识
+                redis-rate-limiter.replenishRate: 10  # 每秒有1个请求
+                redis-rate-limiter.burstCapacity: 30   # 并发4个请求
+        - id: mall_user_route
+          uri: http://127.0.0.1:18086
+          predicates:
+            - Path=/api/user/**,/api/address/**,/api/areas/**,/api/cities/**,/api/provinces/**
+          filters:
+            - StripPrefix=1
+  redis:
+    host: 123.56.143.183
+    port: 6379
+    password: redis123
+    database: 2
 
 eureka:
   client:
@@ -45,3 +57,4 @@ management:
     web:
       exposure:
         include: true
+

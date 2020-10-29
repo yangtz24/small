@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService {
         Example.Criteria criteria = example.createCriteria();
         if(user!=null){
             // 用户名
-            if(!StringUtils.isEmpty(user.getUsername())){
-                    criteria.andLike("username","%"+user.getUsername()+"%");
+            if(!StringUtils.isEmpty(user.getUserName())){
+                    criteria.andLike("username","%"+user.getUserName()+"%");
             }
             // 密码，加密存储
             if(!StringUtils.isEmpty(user.getPassword())){
@@ -198,6 +198,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id){
         return  userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public User findByName(String userName) {
+        return userMapper.findByUserName(userName);
     }
 
     /**

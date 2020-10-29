@@ -771,21 +771,21 @@ public class BCrypt {
 	 * @return	true if the passwords match, false otherwise
 	 */
 	public static boolean checkpw(String plaintext, String hashed) {
-		byte hashed_bytes[];
-		byte try_bytes[];
+		byte[] hashedBytes;
+		byte[] tryBytes;
 		try {
-			String try_pw = hashpw(plaintext, hashed);
-			hashed_bytes = hashed.getBytes("UTF-8");
-			try_bytes = try_pw.getBytes("UTF-8");
+			String tryPw = hashpw(plaintext, hashed);
+			hashedBytes = hashed.getBytes("UTF-8");
+			tryBytes = tryPw.getBytes("UTF-8");
 		} catch (UnsupportedEncodingException uee) {
 			return false;
 		}
-		if (hashed_bytes.length != try_bytes.length) {
+		if (hashedBytes.length != tryBytes.length) {
 			return false;
 		}
 		byte ret = 0;
-		for (int i = 0; i < try_bytes.length; i++) {
-			ret |= hashed_bytes[i] ^ try_bytes[i];
+		for (int i = 0; i < tryBytes.length; i++) {
+			ret |= hashedBytes[i] ^ tryBytes[i];
 		}
 		return ret == 0;
 	}

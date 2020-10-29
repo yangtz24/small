@@ -20,7 +20,7 @@ public class User implements Serializable{
 	 * //用户名
 	 */
     @Column(name = "username")
-	private String username;
+	private String userName;
 
 	/**
 	 * //密码，加密存储
