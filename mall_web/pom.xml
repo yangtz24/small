@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>mall_web_search</module>
+        <module>mall_web_item</module>
     </modules>
 
     <artifactId>mall_web</artifactId>

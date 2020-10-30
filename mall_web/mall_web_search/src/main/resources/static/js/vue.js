@@ -342,7 +342,7 @@ var ASSET_TYPES = [
   'filter'
 ];
 
-var LIFECYCLE_HOOKS = [
+var LIFECYCLE_HOSUCCESSS = [
   'beforeCreate',
   'created',
   'beforeMount',
@@ -443,7 +443,7 @@ var config = ({
   /**
    * Exposed for legacy reasons
    */
-  _lifecycleHooks: LIFECYCLE_HOOKS
+  _lifecycleHoSUCCESSs: LIFECYCLE_HOSUCCESSS
 })
 
 /*  */
@@ -515,7 +515,7 @@ if (inBrowser) {
         /* istanbul ignore next */
         supportsPassive = true;
       }
-    })); // https://github.com/facebook/flow/issues/285
+    })); // https://github.com/faceboSUCCESS/flow/issues/285
     window.addEventListener('test-passive', null, opts);
   } catch (e) {}
 }
@@ -538,7 +538,7 @@ var isServerRendering = function () {
 };
 
 // detect devtools
-var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOSUCCESS__;
 
 /* istanbul ignore next */
 function isNative (Ctor) {
@@ -1216,9 +1216,9 @@ strats.data = function (
 };
 
 /**
- * Hooks and props are merged as arrays.
+ * HoSUCCESSs and props are merged as arrays.
  */
-function mergeHook (
+function mergeHoSUCCESS (
   parentVal,
   childVal
 ) {
@@ -1231,8 +1231,8 @@ function mergeHook (
     : parentVal
 }
 
-LIFECYCLE_HOOKS.forEach(function (hook) {
-  strats[hook] = mergeHook;
+LIFECYCLE_HOSUCCESSS.forEach(function (hoSUCCESS) {
+  strats[hoSUCCESS] = mergeHoSUCCESS;
 });
 
 /**
@@ -1707,14 +1707,14 @@ function handleError (err, vm, info) {
   if (vm) {
     var cur = vm;
     while ((cur = cur.$parent)) {
-      var hooks = cur.$options.errorCaptured;
-      if (hooks) {
-        for (var i = 0; i < hooks.length; i++) {
+      var hoSUCCESSs = cur.$options.errorCaptured;
+      if (hoSUCCESSs) {
+        for (var i = 0; i < hoSUCCESSs.length; i++) {
           try {
-            var capture = hooks[i].call(cur, err, vm, info) === false;
+            var capture = hoSUCCESSs[i].call(cur, err, vm, info) === false;
             if (capture) { return }
           } catch (e) {
-            globalHandleError(e, cur, 'errorCaptured hook');
+            globalHandleError(e, cur, 'errorCaptured hoSUCCESS');
           }
         }
       }
@@ -1965,7 +1965,7 @@ var initProxy;
 var seenObjects = new _Set();
 
 /**
- * Recursively traverse an object to evoke all converted
+ * Recursively traverse an object to evSUCCESSe all converted
  * getters, so that every nested property inside the object
  * is collected as a "deep" dependency.
  */
@@ -2014,11 +2014,11 @@ var normalizeEvent = cached(function (name) {
   }
 });
 
-function createFnInvoker (fns) {
-  function invoker () {
+function createFnInvSUCCESSer (fns) {
+  function invSUCCESSer () {
     var arguments$1 = arguments;
 
-    var fns = invoker.fns;
+    var fns = invSUCCESSer.fns;
     if (Array.isArray(fns)) {
       var cloned = fns.slice();
       for (var i = 0; i < cloned.length; i++) {
@@ -2029,8 +2029,8 @@ function createFnInvoker (fns) {
       return fns.apply(null, arguments)
     }
   }
-  invoker.fns = fns;
-  return invoker
+  invSUCCESSer.fns = fns;
+  return invSUCCESSer
 }
 
 function updateListeners (
@@ -2053,7 +2053,7 @@ function updateListeners (
       );
     } else if (isUndef(old)) {
       if (isUndef(cur.fns)) {
-        cur = on[name] = createFnInvoker(cur);
+        cur = on[name] = createFnInvSUCCESSer(cur);
       }
       add(event.name, cur, event.once, event.capture, event.passive, event.params);
     } else if (cur !== old) {
@@ -2071,37 +2071,37 @@ function updateListeners (
 
 /*  */
 
-function mergeVNodeHook (def, hookKey, hook) {
+function mergeVNodeHoSUCCESS (def, hoSUCCESSKey, hoSUCCESS) {
   if (def instanceof VNode) {
-    def = def.data.hook || (def.data.hook = {});
+    def = def.data.hoSUCCESS || (def.data.hoSUCCESS = {});
   }
-  var invoker;
-  var oldHook = def[hookKey];
+  var invSUCCESSer;
+  var oldHoSUCCESS = def[hoSUCCESSKey];
 
-  function wrappedHook () {
-    hook.apply(this, arguments);
-    // important: remove merged hook to ensure it's called only once
+  function wrappedHoSUCCESS () {
+    hoSUCCESS.apply(this, arguments);
+    // important: remove merged hoSUCCESS to ensure it's called only once
     // and prevent memory leak
-    remove(invoker.fns, wrappedHook);
+    remove(invSUCCESSer.fns, wrappedHoSUCCESS);
   }
 
-  if (isUndef(oldHook)) {
-    // no existing hook
-    invoker = createFnInvoker([wrappedHook]);
+  if (isUndef(oldHoSUCCESS)) {
+    // no existing hoSUCCESS
+    invSUCCESSer = createFnInvSUCCESSer([wrappedHoSUCCESS]);
   } else {
     /* istanbul ignore if */
-    if (isDef(oldHook.fns) && isTrue(oldHook.merged)) {
-      // already a merged invoker
-      invoker = oldHook;
-      invoker.fns.push(wrappedHook);
+    if (isDef(oldHoSUCCESS.fns) && isTrue(oldHoSUCCESS.merged)) {
+      // already a merged invSUCCESSer
+      invSUCCESSer = oldHoSUCCESS;
+      invSUCCESSer.fns.push(wrappedHoSUCCESS);
     } else {
-      // existing plain hook
-      invoker = createFnInvoker([oldHook, wrappedHook]);
+      // existing plain hoSUCCESS
+      invSUCCESSer = createFnInvSUCCESSer([oldHoSUCCESS, wrappedHoSUCCESS]);
     }
   }
 
-  invoker.merged = true;
-  def[hookKey] = invoker;
+  invSUCCESSer.merged = true;
+  def[hoSUCCESSKey] = invSUCCESSer;
 }
 
 /*  */
@@ -2319,7 +2319,7 @@ function resolveAsyncComponent (
     var resolve = once(function (res) {
       // cache resolved
       factory.resolved = ensureCtor(res, baseCtor);
-      // invoke callbacks only if this is not a synchronous resolve
+      // invSUCCESSe callbacks only if this is not a synchronous resolve
       // (async resolves are shimmed as synchronous during SSR)
       if (!sync) {
         forceRender();
@@ -2411,7 +2411,7 @@ function getFirstComponentChild (children) {
 
 function initEvents (vm) {
   vm._events = Object.create(null);
-  vm._hasHookEvent = false;
+  vm._hasHoSUCCESSEvent = false;
   // init parent attached events
   var listeners = vm.$options._parentListeners;
   if (listeners) {
@@ -2444,7 +2444,7 @@ function updateComponentListeners (
 }
 
 function eventsMixin (Vue) {
-  var hookRE = /^hook:/;
+  var hoSUCCESSRE = /^hoSUCCESS:/;
   Vue.prototype.$on = function (event, fn) {
     var this$1 = this;
 
@@ -2455,10 +2455,10 @@ function eventsMixin (Vue) {
       }
     } else {
       (vm._events[event] || (vm._events[event] = [])).push(fn);
-      // optimize hook:event cost by using a boolean flag marked at registration
-      // instead of a hash lookup
-      if (hookRE.test(event)) {
-        vm._hasHookEvent = true;
+      // optimize hoSUCCESS:event cost by using a boolean flag marked at registration
+      // instead of a hash loSUCCESSup
+      if (hoSUCCESSRE.test(event)) {
+        vm._hasHoSUCCESSEvent = true;
       }
     }
     return vm
@@ -2646,7 +2646,7 @@ function lifecycleMixin (Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     var vm = this;
     if (vm._isMounted) {
-      callHook(vm, 'beforeUpdate');
+      callHoSUCCESS(vm, 'beforeUpdate');
     }
     var prevEl = vm.$el;
     var prevVnode = vm._vnode;
@@ -2681,8 +2681,8 @@ function lifecycleMixin (Vue) {
     if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
       vm.$parent.$el = vm.$el;
     }
-    // updated hook is called by the scheduler to ensure that children are
-    // updated in a parent's updated hook.
+    // updated hoSUCCESS is called by the scheduler to ensure that children are
+    // updated in a parent's updated hoSUCCESS.
   };
 
   Vue.prototype.$forceUpdate = function () {
@@ -2697,7 +2697,7 @@ function lifecycleMixin (Vue) {
     if (vm._isBeingDestroyed) {
       return
     }
-    callHook(vm, 'beforeDestroy');
+    callHoSUCCESS(vm, 'beforeDestroy');
     vm._isBeingDestroyed = true;
     // remove self from parent
     var parent = vm.$parent;
@@ -2717,12 +2717,12 @@ function lifecycleMixin (Vue) {
     if (vm._data.__ob__) {
       vm._data.__ob__.vmCount--;
     }
-    // call the last hook...
+    // call the last hoSUCCESS...
     vm._isDestroyed = true;
-    // invoke destroy hooks on current rendered tree
+    // invSUCCESSe destroy hoSUCCESSs on current rendered tree
     vm.__patch__(vm._vnode, null);
-    // fire destroyed hook
-    callHook(vm, 'destroyed');
+    // fire destroyed hoSUCCESS
+    callHoSUCCESS(vm, 'destroyed');
     // turn off all instance listeners.
     vm.$off();
     // remove __vue__ reference
@@ -2762,7 +2762,7 @@ function mountComponent (
       }
     }
   }
-  callHook(vm, 'beforeMount');
+  callHoSUCCESS(vm, 'beforeMount');
 
   var updateComponent;
   /* istanbul ignore if */
@@ -2791,15 +2791,15 @@ function mountComponent (
 
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
-  // component's mounted hook), which relies on vm._watcher being already defined
+  // component's mounted hoSUCCESS), which relies on vm._watcher being already defined
   new Watcher(vm, updateComponent, noop, null, true /* isRenderWatcher */);
   hydrating = false;
 
   // manually mounted instance, call mounted on self
-  // mounted is called for render-created child components in its inserted hook
+  // mounted is called for render-created child components in its inserted hoSUCCESS
   if (vm.$vnode == null) {
     vm._isMounted = true;
-    callHook(vm, 'mounted');
+    callHoSUCCESS(vm, 'mounted');
   }
   return vm
 }
@@ -2891,7 +2891,7 @@ function activateChildComponent (vm, direct) {
     for (var i = 0; i < vm.$children.length; i++) {
       activateChildComponent(vm.$children[i]);
     }
-    callHook(vm, 'activated');
+    callHoSUCCESS(vm, 'activated');
   }
 }
 
@@ -2907,25 +2907,25 @@ function deactivateChildComponent (vm, direct) {
     for (var i = 0; i < vm.$children.length; i++) {
       deactivateChildComponent(vm.$children[i]);
     }
-    callHook(vm, 'deactivated');
+    callHoSUCCESS(vm, 'deactivated');
   }
 }
 
-function callHook (vm, hook) {
-  // #7573 disable dep collection when invoking lifecycle hooks
+function callHoSUCCESS (vm, hoSUCCESS) {
+  // #7573 disable dep collection when invSUCCESSing lifecycle hoSUCCESSs
   pushTarget();
-  var handlers = vm.$options[hook];
+  var handlers = vm.$options[hoSUCCESS];
   if (handlers) {
     for (var i = 0, j = handlers.length; i < j; i++) {
       try {
         handlers[i].call(vm);
       } catch (e) {
-        handleError(e, vm, (hook + " hook"));
+        handleError(e, vm, (hoSUCCESS + " hoSUCCESS"));
       }
     }
   }
-  if (vm._hasHookEvent) {
-    vm.$emit('hook:' + hook);
+  if (vm._hasHoSUCCESSEvent) {
+    vm.$emit('hoSUCCESS:' + hoSUCCESS);
   }
   popTarget();
 }
@@ -3002,24 +3002,24 @@ function flushSchedulerQueue () {
 
   resetSchedulerState();
 
-  // call component updated and activated hooks
-  callActivatedHooks(activatedQueue);
-  callUpdatedHooks(updatedQueue);
+  // call component updated and activated hoSUCCESSs
+  callActivatedHoSUCCESSs(activatedQueue);
+  callUpdatedHoSUCCESSs(updatedQueue);
 
-  // devtool hook
+  // devtool hoSUCCESS
   /* istanbul ignore if */
   if (devtools && config.devtools) {
     devtools.emit('flush');
   }
 }
 
-function callUpdatedHooks (queue) {
+function callUpdatedHoSUCCESSs (queue) {
   var i = queue.length;
   while (i--) {
     var watcher = queue[i];
     var vm = watcher.vm;
     if (vm._watcher === watcher && vm._isMounted) {
-      callHook(vm, 'updated');
+      callHoSUCCESS(vm, 'updated');
     }
   }
 }
@@ -3035,7 +3035,7 @@ function queueActivatedComponent (vm) {
   activatedChildren.push(vm);
 }
 
-function callActivatedHooks (queue) {
+function callActivatedHoSUCCESSs (queue) {
   for (var i = 0; i < queue.length; i++) {
     queue[i]._inactive = true;
     activateChildComponent(queue[i], true /* true */);
@@ -3407,7 +3407,7 @@ function initData (vm) {
 }
 
 function getData (data, vm) {
-  // #7573 disable dep collection when invoking data getters
+  // #7573 disable dep collection when invSUCCESSing data getters
   pushTarget();
   try {
     return data.call(vm, vm)
@@ -4089,8 +4089,8 @@ function mergeProps (to, from) {
 
 
 
-// Register the component hook to weex native render engine.
-// The hook will be triggered by native, not javascript.
+// Register the component hoSUCCESS to weex native render engine.
+// The hoSUCCESS will be triggered by native, not javascript.
 
 
 // Updates the state of the component to weex native render engine.
@@ -4105,8 +4105,8 @@ function mergeProps (to, from) {
 
 /*  */
 
-// inline hooks to be invoked on component VNodes during patch
-var componentVNodeHooks = {
+// inline hoSUCCESSs to be invSUCCESSed on component VNodes during patch
+var componentVNodeHoSUCCESSs = {
   init: function init (
     vnode,
     hydrating,
@@ -4120,7 +4120,7 @@ var componentVNodeHooks = {
     ) {
       // kept-alive components, treat as a patch
       var mountedNode = vnode; // work around flow
-      componentVNodeHooks.prepatch(mountedNode, mountedNode);
+      componentVNodeHoSUCCESSs.prepatch(mountedNode, mountedNode);
     } else {
       var child = vnode.componentInstance = createComponentInstanceForVnode(
         vnode,
@@ -4149,13 +4149,13 @@ var componentVNodeHooks = {
     var componentInstance = vnode.componentInstance;
     if (!componentInstance._isMounted) {
       componentInstance._isMounted = true;
-      callHook(componentInstance, 'mounted');
+      callHoSUCCESS(componentInstance, 'mounted');
     }
     if (vnode.data.keepAlive) {
       if (context._isMounted) {
         // vue-router#1212
         // During updates, a kept-alive component's child components may
-        // change, so directly walking the tree here may call activated hooks
+        // change, so directly walking the tree here may call activated hoSUCCESSs
         // on incorrect children. Instead we push them into a queue which will
         // be processed after the whole patch process ended.
         queueActivatedComponent(componentInstance);
@@ -4177,7 +4177,7 @@ var componentVNodeHooks = {
   }
 };
 
-var hooksToMerge = Object.keys(componentVNodeHooks);
+var hoSUCCESSsToMerge = Object.keys(componentVNodeHoSUCCESSs);
 
 function createComponent (
   Ctor,
@@ -4263,8 +4263,8 @@ function createComponent (
     }
   }
 
-  // install component management hooks onto the placeholder node
-  installComponentHooks(data);
+  // install component management hoSUCCESSs onto the placeholder node
+  installComponentHoSUCCESSs(data);
 
   // return a placeholder vnode
   var name = Ctor.options.name || tag;
@@ -4275,7 +4275,7 @@ function createComponent (
     asyncFactory
   );
 
-  // Weex specific: invoke recycle-list optimized @render function for
+  // Weex specific: invSUCCESSe recycle-list optimized @render function for
   // extracting cell-slot template.
   // https://github.com/Hanks10100/weex-native-directive/tree/master/component
   /* istanbul ignore if */
@@ -4304,11 +4304,11 @@ function createComponentInstanceForVnode (
   return new vnode.componentOptions.Ctor(options)
 }
 
-function installComponentHooks (data) {
-  var hooks = data.hook || (data.hook = {});
-  for (var i = 0; i < hooksToMerge.length; i++) {
-    var key = hooksToMerge[i];
-    hooks[key] = componentVNodeHooks[key];
+function installComponentHoSUCCESSs (data) {
+  var hoSUCCESSs = data.hoSUCCESS || (data.hoSUCCESS = {});
+  for (var i = 0; i < hoSUCCESSsToMerge.length; i++) {
+    var key = hoSUCCESSsToMerge[i];
+    hoSUCCESSs[key] = componentVNodeHoSUCCESSs[key];
   }
 }
 
@@ -4610,11 +4610,11 @@ function initMixin (Vue) {
     initLifecycle(vm);
     initEvents(vm);
     initRender(vm);
-    callHook(vm, 'beforeCreate');
+    callHoSUCCESS(vm, 'beforeCreate');
     initInjections(vm); // resolve injections before data/props
     initState(vm);
     initProvide(vm); // resolve provide after data/props
-    callHook(vm, 'created');
+    callHoSUCCESS(vm, 'created');
 
     /* istanbul ignore if */
     if ("development" !== 'production' && config.performance && mark) {
@@ -4689,7 +4689,7 @@ function resolveModifiedOptions (Ctor) {
 }
 
 function dedupe (latest, extended, sealed) {
-  // compare latest and sealed to ensure lifecycle hooks won't be duplicated
+  // compare latest and sealed to ensure lifecycle hoSUCCESSs won't be duplicated
   // between merges
   if (Array.isArray(latest)) {
     var res = [];
@@ -4813,7 +4813,7 @@ function initExtend (Vue) {
     ASSET_TYPES.forEach(function (type) {
       Sub[type] = Super[type];
     });
-    // enable recursive self-lookup
+    // enable recursive self-loSUCCESSup
     if (name) {
       Sub.options.components[name] = Sub;
     }
@@ -5427,7 +5427,7 @@ function registerRef (vnode, isRemoval) {
 
 var emptyNode = new VNode('', {}, []);
 
-var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
+var hoSUCCESSs = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function sameVnode (a, b) {
   return (
@@ -5471,11 +5471,11 @@ function createPatchFunction (backend) {
   var modules = backend.modules;
   var nodeOps = backend.nodeOps;
 
-  for (i = 0; i < hooks.length; ++i) {
-    cbs[hooks[i]] = [];
+  for (i = 0; i < hoSUCCESSs.length; ++i) {
+    cbs[hoSUCCESSs[i]] = [];
     for (j = 0; j < modules.length; ++j) {
-      if (isDef(modules[j][hooks[i]])) {
-        cbs[hooks[i]].push(modules[j][hooks[i]]);
+      if (isDef(modules[j][hoSUCCESSs[i]])) {
+        cbs[hoSUCCESSs[i]].push(modules[j][hoSUCCESSs[i]]);
       }
     }
   }
@@ -5570,7 +5570,7 @@ function createPatchFunction (backend) {
       {
         createChildren(vnode, children, insertedVnodeQueue);
         if (isDef(data)) {
-          invokeCreateHooks(vnode, insertedVnodeQueue);
+          invSUCCESSeCreateHoSUCCESSs(vnode, insertedVnodeQueue);
         }
         insert(parentElm, vnode.elm, refElm);
       }
@@ -5591,10 +5591,10 @@ function createPatchFunction (backend) {
     var i = vnode.data;
     if (isDef(i)) {
       var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
-      if (isDef(i = i.hook) && isDef(i = i.init)) {
+      if (isDef(i = i.hoSUCCESS) && isDef(i = i.init)) {
         i(vnode, false /* hydrating */, parentElm, refElm);
       }
-      // after calling the init hook, if the vnode is a child component
+      // after calling the init hoSUCCESS, if the vnode is a child component
       // it should've created a child instance and mounted it. the child
       // component also has set the placeholder vnode's elm.
       // in that case we can just return the element and be done.
@@ -5615,13 +5615,13 @@ function createPatchFunction (backend) {
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {
-      invokeCreateHooks(vnode, insertedVnodeQueue);
+      invSUCCESSeCreateHoSUCCESSs(vnode, insertedVnodeQueue);
       setScope(vnode);
     } else {
       // empty component root.
       // skip all element-related modules except for ref (#3455)
       registerRef(vnode);
-      // make sure to invoke the insert hook
+      // make sure to invSUCCESSe the insert hoSUCCESS
       insertedVnodeQueue.push(vnode);
     }
   }
@@ -5629,7 +5629,7 @@ function createPatchFunction (backend) {
   function reactivateComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     var i;
     // hack for #4339: a reactivated component with inner transition
-    // does not trigger because the inner node's created hooks are not called
+    // does not trigger because the inner node's created hoSUCCESSs are not called
     // again. It's not ideal to involve module-specific logic in here but
     // there doesn't seem to be a better way to do it.
     var innerNode = vnode;
@@ -5680,11 +5680,11 @@ function createPatchFunction (backend) {
     return isDef(vnode.tag)
   }
 
-  function invokeCreateHooks (vnode, insertedVnodeQueue) {
+  function invSUCCESSeCreateHoSUCCESSs (vnode, insertedVnodeQueue) {
     for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
       cbs.create[i$1](emptyNode, vnode);
     }
-    i = vnode.data.hook; // Reuse variable
+    i = vnode.data.hoSUCCESS; // Reuse variable
     if (isDef(i)) {
       if (isDef(i.create)) { i.create(emptyNode, vnode); }
       if (isDef(i.insert)) { insertedVnodeQueue.push(vnode); }
@@ -5723,16 +5723,16 @@ function createPatchFunction (backend) {
     }
   }
 
-  function invokeDestroyHook (vnode) {
+  function invSUCCESSeDestroyHoSUCCESS (vnode) {
     var i, j;
     var data = vnode.data;
     if (isDef(data)) {
-      if (isDef(i = data.hook) && isDef(i = i.destroy)) { i(vnode); }
+      if (isDef(i = data.hoSUCCESS) && isDef(i = i.destroy)) { i(vnode); }
       for (i = 0; i < cbs.destroy.length; ++i) { cbs.destroy[i](vnode); }
     }
     if (isDef(i = vnode.children)) {
       for (j = 0; j < vnode.children.length; ++j) {
-        invokeDestroyHook(vnode.children[j]);
+        invSUCCESSeDestroyHoSUCCESS(vnode.children[j]);
       }
     }
   }
@@ -5742,8 +5742,8 @@ function createPatchFunction (backend) {
       var ch = vnodes[startIdx];
       if (isDef(ch)) {
         if (isDef(ch.tag)) {
-          removeAndInvokeRemoveHook(ch);
-          invokeDestroyHook(ch);
+          removeAndInvSUCCESSeRemoveHoSUCCESS(ch);
+          invSUCCESSeDestroyHoSUCCESS(ch);
         } else { // Text node
           removeNode(ch.elm);
         }
@@ -5751,7 +5751,7 @@ function createPatchFunction (backend) {
     }
   }
 
-  function removeAndInvokeRemoveHook (vnode, rm) {
+  function removeAndInvSUCCESSeRemoveHoSUCCESS (vnode, rm) {
     if (isDef(rm) || isDef(vnode.data)) {
       var i;
       var listeners = cbs.remove.length + 1;
@@ -5763,14 +5763,14 @@ function createPatchFunction (backend) {
         // directly removing
         rm = createRmCb(vnode.elm, listeners);
       }
-      // recursively invoke hooks on child component root node
+      // recursively invSUCCESSe hoSUCCESSs on child component root node
       if (isDef(i = vnode.componentInstance) && isDef(i = i._vnode) && isDef(i.data)) {
-        removeAndInvokeRemoveHook(i, rm);
+        removeAndInvSUCCESSeRemoveHoSUCCESS(i, rm);
       }
       for (i = 0; i < cbs.remove.length; ++i) {
         cbs.remove[i](vnode, rm);
       }
-      if (isDef(i = vnode.data.hook) && isDef(i = i.remove)) {
+      if (isDef(i = vnode.data.hoSUCCESS) && isDef(i = i.remove)) {
         i(vnode, rm);
       } else {
         rm();
@@ -5908,7 +5908,7 @@ function createPatchFunction (backend) {
 
     var i;
     var data = vnode.data;
-    if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
+    if (isDef(data) && isDef(i = data.hoSUCCESS) && isDef(i = i.prepatch)) {
       i(oldVnode, vnode);
     }
 
@@ -5916,7 +5916,7 @@ function createPatchFunction (backend) {
     var ch = vnode.children;
     if (isDef(data) && isPatchable(vnode)) {
       for (i = 0; i < cbs.update.length; ++i) { cbs.update[i](oldVnode, vnode); }
-      if (isDef(i = data.hook) && isDef(i = i.update)) { i(oldVnode, vnode); }
+      if (isDef(i = data.hoSUCCESS) && isDef(i = i.update)) { i(oldVnode, vnode); }
     }
     if (isUndef(vnode.text)) {
       if (isDef(oldCh) && isDef(ch)) {
@@ -5933,24 +5933,24 @@ function createPatchFunction (backend) {
       nodeOps.setTextContent(elm, vnode.text);
     }
     if (isDef(data)) {
-      if (isDef(i = data.hook) && isDef(i = i.postpatch)) { i(oldVnode, vnode); }
+      if (isDef(i = data.hoSUCCESS) && isDef(i = i.postpatch)) { i(oldVnode, vnode); }
     }
   }
 
-  function invokeInsertHook (vnode, queue, initial) {
-    // delay insert hooks for component root nodes, invoke them after the
+  function invSUCCESSeInsertHoSUCCESS (vnode, queue, initial) {
+    // delay insert hoSUCCESSs for component root nodes, invSUCCESSe them after the
     // element is really inserted
     if (isTrue(initial) && isDef(vnode.parent)) {
       vnode.parent.data.pendingInsert = queue;
     } else {
       for (var i = 0; i < queue.length; ++i) {
-        queue[i].data.hook.insert(queue[i]);
+        queue[i].data.hoSUCCESS.insert(queue[i]);
       }
     }
   }
 
   var hydrationBailed = false;
-  // list of modules that can skip create hook during hydration because they
+  // list of modules that can skip create hoSUCCESS during hydration because they
   // are already rendered on the client or has no need for initialization
   // Note: style is excluded because it relies on initial clone for future
   // deep updates (#7063).
@@ -5976,7 +5976,7 @@ function createPatchFunction (backend) {
       }
     }
     if (isDef(data)) {
-      if (isDef(i = data.hook) && isDef(i = i.init)) { i(vnode, true /* hydrating */); }
+      if (isDef(i = data.hoSUCCESS) && isDef(i = i.init)) { i(vnode, true /* hydrating */); }
       if (isDef(i = vnode.componentInstance)) {
         // child component. it should have hydrated its own tree.
         initComponent(vnode, insertedVnodeQueue);
@@ -6033,15 +6033,15 @@ function createPatchFunction (backend) {
         }
       }
       if (isDef(data)) {
-        var fullInvoke = false;
+        var fullInvSUCCESSe = false;
         for (var key in data) {
           if (!isRenderedModule(key)) {
-            fullInvoke = true;
-            invokeCreateHooks(vnode, insertedVnodeQueue);
+            fullInvSUCCESSe = true;
+            invSUCCESSeCreateHoSUCCESSs(vnode, insertedVnodeQueue);
             break
           }
         }
-        if (!fullInvoke && data['class']) {
+        if (!fullInvSUCCESSe && data['class']) {
           // ensure collecting deps for deep class bindings for future updates
           traverse(data['class']);
         }
@@ -6065,7 +6065,7 @@ function createPatchFunction (backend) {
 
   return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
     if (isUndef(vnode)) {
-      if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
+      if (isDef(oldVnode)) { invSUCCESSeDestroyHoSUCCESS(oldVnode); }
       return
     }
 
@@ -6092,7 +6092,7 @@ function createPatchFunction (backend) {
           }
           if (isTrue(hydrating)) {
             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
-              invokeInsertHook(vnode, insertedVnodeQueue, true);
+              invSUCCESSeInsertHoSUCCESS(vnode, insertedVnodeQueue, true);
               return oldVnode
             } else {
               warn(
@@ -6138,11 +6138,11 @@ function createPatchFunction (backend) {
                 cbs.create[i$1](emptyNode, ancestor);
               }
               // #6513
-              // invoke insert hooks that may have been merged by create hooks.
-              // e.g. for directives that uses the "inserted" hook.
-              var insert = ancestor.data.hook.insert;
+              // invSUCCESSe insert hoSUCCESSs that may have been merged by create hoSUCCESSs.
+              // e.g. for directives that uses the "inserted" hoSUCCESS.
+              var insert = ancestor.data.hoSUCCESS.insert;
               if (insert.merged) {
-                // start at index 1 to avoid re-invoking component mounted hook
+                // start at index 1 to avoid re-invSUCCESSing component mounted hoSUCCESS
                 for (var i$2 = 1; i$2 < insert.fns.length; i$2++) {
                   insert.fns[i$2]();
                 }
@@ -6158,12 +6158,12 @@ function createPatchFunction (backend) {
         if (isDef(parentElm$1)) {
           removeVnodes(parentElm$1, [oldVnode], 0, 0);
         } else if (isDef(oldVnode.tag)) {
-          invokeDestroyHook(oldVnode);
+          invSUCCESSeDestroyHoSUCCESS(oldVnode);
         }
       }
     }
 
-    invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch);
+    invSUCCESSeInsertHoSUCCESS(vnode, insertedVnodeQueue, isInitialPatch);
     return vnode.elm
   }
 }
@@ -6199,14 +6199,14 @@ function _update (oldVnode, vnode) {
     dir = newDirs[key];
     if (!oldDir) {
       // new directive, bind
-      callHook$1(dir, 'bind', vnode, oldVnode);
+      callHoSUCCESS$1(dir, 'bind', vnode, oldVnode);
       if (dir.def && dir.def.inserted) {
         dirsWithInsert.push(dir);
       }
     } else {
       // existing directive, update
       dir.oldValue = oldDir.value;
-      callHook$1(dir, 'update', vnode, oldVnode);
+      callHoSUCCESS$1(dir, 'update', vnode, oldVnode);
       if (dir.def && dir.def.componentUpdated) {
         dirsWithPostpatch.push(dir);
       }
@@ -6216,20 +6216,20 @@ function _update (oldVnode, vnode) {
   if (dirsWithInsert.length) {
     var callInsert = function () {
       for (var i = 0; i < dirsWithInsert.length; i++) {
-        callHook$1(dirsWithInsert[i], 'inserted', vnode, oldVnode);
+        callHoSUCCESS$1(dirsWithInsert[i], 'inserted', vnode, oldVnode);
       }
     };
     if (isCreate) {
-      mergeVNodeHook(vnode, 'insert', callInsert);
+      mergeVNodeHoSUCCESS(vnode, 'insert', callInsert);
     } else {
       callInsert();
     }
   }
 
   if (dirsWithPostpatch.length) {
-    mergeVNodeHook(vnode, 'postpatch', function () {
+    mergeVNodeHoSUCCESS(vnode, 'postpatch', function () {
       for (var i = 0; i < dirsWithPostpatch.length; i++) {
-        callHook$1(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode);
+        callHoSUCCESS$1(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode);
       }
     });
   }
@@ -6238,7 +6238,7 @@ function _update (oldVnode, vnode) {
     for (key in oldDirs) {
       if (!newDirs[key]) {
         // no longer present, unbind
-        callHook$1(oldDirs[key], 'unbind', oldVnode, oldVnode, isDestroy);
+        callHoSUCCESS$1(oldDirs[key], 'unbind', oldVnode, oldVnode, isDestroy);
       }
     }
   }
@@ -6273,13 +6273,13 @@ function getRawDirName (dir) {
   return dir.rawName || ((dir.name) + "." + (Object.keys(dir.modifiers || {}).join('.')))
 }
 
-function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
-  var fn = dir.def && dir.def[hook];
+function callHoSUCCESS$1 (dir, hoSUCCESS, vnode, oldVnode, isDestroy) {
+  var fn = dir.def && dir.def[hoSUCCESS];
   if (fn) {
     try {
       fn(vnode.elm, dir, vnode, oldVnode, isDestroy);
     } catch (e) {
-      handleError(e, vnode.context, ("directive " + (dir.name) + " " + hook + " hook"));
+      handleError(e, vnode.context, ("directive " + (dir.name) + " " + hoSUCCESS + " hoSUCCESS"));
     }
   }
 }
@@ -6847,9 +6847,9 @@ function parseString (chr) {
 var warn$1;
 
 // in some cases, the event used has to be determined at runtime
-// so we used some reserved tokens during compile.
-var RANGE_TOKEN = '__r';
-var CHECKBOX_RADIO_TOKEN = '__c';
+// so we used some reserved tSUCCESSens during compile.
+var RANGE_TSUCCESSEN = '__r';
+var CHECKBOX_RADIO_TSUCCESSEN = '__c';
 
 function model (
   el,
@@ -6991,7 +6991,7 @@ function genDefaultModel (
   var event = lazy
     ? 'change'
     : type === 'range'
-      ? RANGE_TOKEN
+      ? RANGE_TSUCCESSEN
       : 'input';
 
   var valueExpression = '$event.target.value';
@@ -7016,24 +7016,24 @@ function genDefaultModel (
 
 /*  */
 
-// normalize v-model event tokens that can only be determined at runtime.
+// normalize v-model event tSUCCESSens that can only be determined at runtime.
 // it's important to place the event as the first in the array because
 // the whole point is ensuring the v-model callback gets called before
 // user-attached handlers.
 function normalizeEvents (on) {
   /* istanbul ignore if */
-  if (isDef(on[RANGE_TOKEN])) {
+  if (isDef(on[RANGE_TSUCCESSEN])) {
     // IE input[type=range] only supports `change` event
     var event = isIE ? 'change' : 'input';
-    on[event] = [].concat(on[RANGE_TOKEN], on[event] || []);
-    delete on[RANGE_TOKEN];
+    on[event] = [].concat(on[RANGE_TSUCCESSEN], on[event] || []);
+    delete on[RANGE_TSUCCESSEN];
   }
   // This was originally intended to fix #4521 but no longer necessary
   // after 2.5. Keeping it for backwards compat with generated code from < 2.4
   /* istanbul ignore if */
-  if (isDef(on[CHECKBOX_RADIO_TOKEN])) {
-    on.change = [].concat(on[CHECKBOX_RADIO_TOKEN], on.change || []);
-    delete on[CHECKBOX_RADIO_TOKEN];
+  if (isDef(on[CHECKBOX_RADIO_TSUCCESSEN])) {
+    on.change = [].concat(on[CHECKBOX_RADIO_TSUCCESSEN], on.change || []);
+    delete on[CHECKBOX_RADIO_TSUCCESSEN];
   }
 }
 
@@ -7660,16 +7660,16 @@ function enter (vnode, toggleDisplay) {
     ? appearToClass
     : enterToClass;
 
-  var beforeEnterHook = isAppear
+  var beforeEnterHoSUCCESS = isAppear
     ? (beforeAppear || beforeEnter)
     : beforeEnter;
-  var enterHook = isAppear
+  var enterHoSUCCESS = isAppear
     ? (typeof appear === 'function' ? appear : enter)
     : enter;
-  var afterEnterHook = isAppear
+  var afterEnterHoSUCCESS = isAppear
     ? (afterAppear || afterEnter)
     : afterEnter;
-  var enterCancelledHook = isAppear
+  var enterCancelledHoSUCCESS = isAppear
     ? (appearCancelled || enterCancelled)
     : enterCancelled;
 
@@ -7684,7 +7684,7 @@ function enter (vnode, toggleDisplay) {
   }
 
   var expectsCSS = css !== false && !isIE9;
-  var userWantsControl = getHookArgumentsLength(enterHook);
+  var userWantsControl = getHoSUCCESSArgumentsLength(enterHoSUCCESS);
 
   var cb = el._enterCb = once(function () {
     if (expectsCSS) {
@@ -7695,16 +7695,16 @@ function enter (vnode, toggleDisplay) {
       if (expectsCSS) {
         removeTransitionClass(el, startClass);
       }
-      enterCancelledHook && enterCancelledHook(el);
+      enterCancelledHoSUCCESS && enterCancelledHoSUCCESS(el);
     } else {
-      afterEnterHook && afterEnterHook(el);
+      afterEnterHoSUCCESS && afterEnterHoSUCCESS(el);
     }
     el._enterCb = null;
   });
 
   if (!vnode.data.show) {
-    // remove pending leave element on enter by injecting an insert hook
-    mergeVNodeHook(vnode, 'insert', function () {
+    // remove pending leave element on enter by injecting an insert hoSUCCESS
+    mergeVNodeHoSUCCESS(vnode, 'insert', function () {
       var parent = el.parentNode;
       var pendingNode = parent && parent._pending && parent._pending[vnode.key];
       if (pendingNode &&
@@ -7713,12 +7713,12 @@ function enter (vnode, toggleDisplay) {
       ) {
         pendingNode.elm._leaveCb();
       }
-      enterHook && enterHook(el, cb);
+      enterHoSUCCESS && enterHoSUCCESS(el, cb);
     });
   }
 
   // start enter transition
-  beforeEnterHook && beforeEnterHook(el);
+  beforeEnterHoSUCCESS && beforeEnterHoSUCCESS(el);
   if (expectsCSS) {
     addTransitionClass(el, startClass);
     addTransitionClass(el, activeClass);
@@ -7739,7 +7739,7 @@ function enter (vnode, toggleDisplay) {
 
   if (vnode.data.show) {
     toggleDisplay && toggleDisplay();
-    enterHook && enterHook(el, cb);
+    enterHoSUCCESS && enterHoSUCCESS(el, cb);
   }
 
   if (!expectsCSS && !userWantsControl) {
@@ -7779,7 +7779,7 @@ function leave (vnode, rm) {
   var duration = data.duration;
 
   var expectsCSS = css !== false && !isIE9;
-  var userWantsControl = getHookArgumentsLength(leave);
+  var userWantsControl = getHoSUCCESSArgumentsLength(leave);
 
   var explicitLeaveDuration = toNumber(
     isObject(duration)
@@ -7873,22 +7873,22 @@ function isValidDuration (val) {
 }
 
 /**
- * Normalize a transition hook's argument length. The hook may be:
- * - a merged hook (invoker) with the original in .fns
+ * Normalize a transition hoSUCCESS's argument length. The hoSUCCESS may be:
+ * - a merged hoSUCCESS (invSUCCESSer) with the original in .fns
  * - a wrapped component method (check ._length)
  * - a plain function (.length)
  */
-function getHookArgumentsLength (fn) {
+function getHoSUCCESSArgumentsLength (fn) {
   if (isUndef(fn)) {
     return false
   }
-  var invokerFns = fn.fns;
-  if (isDef(invokerFns)) {
-    // invoker
-    return getHookArgumentsLength(
-      Array.isArray(invokerFns)
-        ? invokerFns[0]
-        : invokerFns
+  var invSUCCESSerFns = fn.fns;
+  if (isDef(invSUCCESSerFns)) {
+    // invSUCCESSer
+    return getHoSUCCESSArgumentsLength(
+      Array.isArray(invSUCCESSerFns)
+        ? invSUCCESSerFns[0]
+        : invSUCCESSerFns
     )
   } else {
     return (fn._length || fn.length) > 1
@@ -7952,7 +7952,7 @@ var directive = {
     if (vnode.tag === 'select') {
       // #6903
       if (oldVnode.elm && !oldVnode.elm._vOptions) {
-        mergeVNodeHook(vnode, 'postpatch', function () {
+        mergeVNodeHoSUCCESS(vnode, 'postpatch', function () {
           directive.componentUpdated(el, binding, vnode);
         });
       } else {
@@ -8307,7 +8307,7 @@ var Transition = {
       if (mode === 'out-in') {
         // return placeholder node and queue update when leave finishes
         this._leaving = true;
-        mergeVNodeHook(oldData, 'afterLeave', function () {
+        mergeVNodeHoSUCCESS(oldData, 'afterLeave', function () {
           this$1._leaving = false;
           this$1.$forceUpdate();
         });
@@ -8318,9 +8318,9 @@ var Transition = {
         }
         var delayedLeave;
         var performLeave = function () { delayedLeave(); };
-        mergeVNodeHook(data, 'afterEnter', performLeave);
-        mergeVNodeHook(data, 'enterCancelled', performLeave);
-        mergeVNodeHook(oldData, 'delayLeave', function (leave) { delayedLeave = leave; });
+        mergeVNodeHoSUCCESS(data, 'afterEnter', performLeave);
+        mergeVNodeHoSUCCESS(data, 'enterCancelled', performLeave);
+        mergeVNodeHoSUCCESS(oldData, 'delayLeave', function (leave) { delayedLeave = leave; });
       }
     }
 
@@ -8527,7 +8527,7 @@ Vue.prototype.$mount = function (
   return mountComponent(this, el, hydrating)
 };
 
-// devtools global hook
+// devtools global hoSUCCESS
 /* istanbul ignore next */
 if (inBrowser) {
   setTimeout(function () {
@@ -8580,30 +8580,30 @@ function parseText (
   if (!tagRE.test(text)) {
     return
   }
-  var tokens = [];
-  var rawTokens = [];
+  var tSUCCESSens = [];
+  var rawTSUCCESSens = [];
   var lastIndex = tagRE.lastIndex = 0;
-  var match, index, tokenValue;
+  var match, index, tSUCCESSenValue;
   while ((match = tagRE.exec(text))) {
     index = match.index;
-    // push text token
+    // push text tSUCCESSen
     if (index > lastIndex) {
-      rawTokens.push(tokenValue = text.slice(lastIndex, index));
-      tokens.push(JSON.stringify(tokenValue));
+      rawTSUCCESSens.push(tSUCCESSenValue = text.slice(lastIndex, index));
+      tSUCCESSens.push(JSON.stringify(tSUCCESSenValue));
     }
-    // tag token
+    // tag tSUCCESSen
     var exp = parseFilters(match[1].trim());
-    tokens.push(("_s(" + exp + ")"));
-    rawTokens.push({ '@binding': exp });
+    tSUCCESSens.push(("_s(" + exp + ")"));
+    rawTSUCCESSens.push({ '@binding': exp });
     lastIndex = index + match[0].length;
   }
   if (lastIndex < text.length) {
-    rawTokens.push(tokenValue = text.slice(lastIndex));
-    tokens.push(JSON.stringify(tokenValue));
+    rawTSUCCESSens.push(tSUCCESSenValue = text.slice(lastIndex));
+    tSUCCESSens.push(JSON.stringify(tSUCCESSenValue));
   }
   return {
-    expression: tokens.join('+'),
-    tokens: rawTokens
+    expression: tSUCCESSens.join('+'),
+    tSUCCESSens: rawTSUCCESSens
   }
 }
 
@@ -8753,9 +8753,9 @@ var doctype = /^<!DOCTYPE [^>]+>/i;
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 
-var IS_REGEX_CAPTURING_BROKEN = false;
+var IS_REGEX_CAPTURING_BRSUCCESSEN = false;
 'x'.replace(/x(.)?/g, function (m, g) {
-  IS_REGEX_CAPTURING_BROKEN = g === '';
+  IS_REGEX_CAPTURING_BRSUCCESSEN = g === '';
 });
 
 // Special Elements (can contain anything)
@@ -8956,7 +8956,7 @@ function parseHTML (html, options) {
     for (var i = 0; i < l; i++) {
       var args = match.attrs[i];
       // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
-      if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
+      if (IS_REGEX_CAPTURING_BRSUCCESSEN && args[0].indexOf('""') === -1) {
         if (args[3] === '') { delete args[3]; }
         if (args[4] === '') { delete args[4]; }
         if (args[5] === '') { delete args[5]; }
@@ -9286,7 +9286,7 @@ function parse (
           children.push({
             type: 2,
             expression: res.expression,
-            tokens: res.tokens,
+            tSUCCESSens: res.tSUCCESSens,
             text: text
           });
         } else if (text !== ' ' || !children.length || children[children.length - 1].text !== ' ') {

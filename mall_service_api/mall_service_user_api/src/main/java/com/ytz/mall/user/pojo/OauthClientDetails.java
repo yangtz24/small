@@ -60,13 +60,13 @@ public class OauthClientDetails implements Serializable{
 	/**
 	 * //令牌有效期
 	 */
-    @Column(name = "access_token_validity")
+    @Column(name = "access_tSUCCESSen_validity")
 	private Integer accessTokenValidity;
 
 	/**
 	 * //令牌刷新周期
 	 */
-	@Column(name = "refresh_token_validity")
+	@Column(name = "refresh_tSUCCESSen_validity")
 	private Integer refreshTokenValidity;
 
 	/**

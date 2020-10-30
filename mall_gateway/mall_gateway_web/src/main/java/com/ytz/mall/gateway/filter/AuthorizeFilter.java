@@ -1,5 +1,6 @@
 package com.ytz.mall.gateway.filter;
 
+import com.ytz.mall.common.Constants;
 import com.ytz.mall.common.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -23,11 +24,6 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthorizeFilter implements GlobalFilter, Ordered {
 
-    /**
-     * 令牌头名字
-     */
-    private static final String AUTHORIZE_TOKEN = "Authorization";
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         //获取Request、Response对象
@@ -45,15 +41,15 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 //        }
 
         //获取头文件中的令牌信息
-        String tokent = request.getHeaders().getFirst(AUTHORIZE_TOKEN);
+        String tSUCCESSent = request.getHeaders().getFirst(Constants.AUTHORIZATION);
 
         //如果头文件中没有，则从请求参数中获取
-        if (StringUtils.isEmpty(tokent)) {
-            tokent = request.getQueryParams().getFirst(AUTHORIZE_TOKEN);
+        if (StringUtils.isEmpty(tSUCCESSent)) {
+            tSUCCESSent = request.getQueryParams().getFirst(Constants.AUTHORIZATION);
         }
 
         //如果为空，则输出错误代码
-        if (StringUtils.isEmpty(tokent)) {
+        if (StringUtils.isEmpty(tSUCCESSent)) {
             //设置方法不允许被访问，405错误代码
             response.setStatusCode(HttpStatus.METHOD_NOT_ALLOWED);
             return response.setComplete();
@@ -61,7 +57,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
 
         //解析令牌数据
         try {
-            Claims claims = JwtUtil.parseJWT(tokent);
+            Claims claims = JwtUtil.parseJWT(tSUCCESSent);
         } catch (Exception e) {
             e.printStackTrace();
             //解析失败，响应401错误

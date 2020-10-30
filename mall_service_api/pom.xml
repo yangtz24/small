@@ -14,6 +14,8 @@
         <module>mall_service_content_api</module>
         <module>mall_service_search_api</module>
         <module>mall_service_user_api</module>
+        <module>mall_service_item_api</module>
+        <module>mall_service_order_api</module>
     </modules>
 
     <artifactId>mall_service_api</artifactId>

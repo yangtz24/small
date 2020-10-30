@@ -10,9 +10,13 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
+/**
+ * @author yangt
+ */
 @ApiModel(description = "Sku",value = "Sku")
 @Table(name="tb_sku")
 @Data
@@ -35,7 +39,7 @@ public class Sku implements Serializable{
 
 	@ApiModelProperty(value = "价格（分）",required = false)
     @Column(name = "price")
-	private Integer price;
+	private BigDecimal price;
 
 	@ApiModelProperty(value = "库存数量",required = false)
     @Column(name = "num")
@@ -53,9 +57,9 @@ public class Sku implements Serializable{
     @Column(name = "images")
 	private String images;
 
-	@ApiModelProperty(value = "重量（克）",required = false)
+	@ApiModelProperty(value = "重量（千克）",required = false)
     @Column(name = "weight")
-	private Integer weight;
+	private BigDecimal weight;
 
 	@ApiModelProperty(value = "创建时间",required = false)
     @Column(name = "create_time")

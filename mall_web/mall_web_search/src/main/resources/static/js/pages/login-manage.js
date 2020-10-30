@@ -27,7 +27,7 @@ $.fn.drag = function(options) {
                 handler.css({'left': _x}); 
                 drag_bg.css({'width': _x}); 
             } else if (_x > maxWidth) {  //鼠标指针移动距离达到最大时清空事件 
-                dragOk(); 
+                dragSUCCESS(); 
             } 
         } 
     }).mouseup(function(e) { 
@@ -40,8 +40,8 @@ $.fn.drag = function(options) {
     }); 
  
     //清空事件 
-    function dragOk() { 
-        handler.removeClass('handler_bg').addClass('handler_ok_bg'); 
+    function dragSUCCESS() { 
+        handler.removeClass('handler_bg').addClass('handler_SUCCESS_bg'); 
         text.text('验证通过'); 
         drag.css({'color': '#fff'}); 
         handler.unbind('mousedown'); 

@@ -1,0 +1,21 @@
+server:
+  port: 18087
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+spring:
+  thymeleaf:
+    cache: false
+  application:
+    name: item-service
+  main:
+    allow-bean-definition-overriding: true
+
+# 生成静态页的位置
+pagePath: D:\OwnRepository\shopping_mall\mall_web\mall_web_item\src\main\resources\static

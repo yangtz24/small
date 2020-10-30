@@ -194,14 +194,14 @@ public class UserController {
             info.put("userName",username);
 
             //1.生成令牌
-            String token = JwtUtil.createJWT(UUID.randomUUID().toString(), JSON.toJSONString(info), null);
+            String tSUCCESSen = JwtUtil.createJWT(UUID.randomUUID().toString(), JSON.toJSONString(info), null);
             //2.设置cookie中
-            Cookie cookie = new Cookie("Authorization",token);
+            Cookie cookie = new Cookie("Authorization",tSUCCESSen);
             response.addCookie(cookie);
             //3.设置头文件中
-            response.setHeader("Authorization",token);
+            response.setHeader("Authorization",tSUCCESSen);
 
-            return new Result<>(true, StatusCode.SUCCESS, "成功", token);
+            return new Result<>(true, StatusCode.SUCCESS, "成功", tSUCCESSen);
         }else{
             //失败
             return new Result<>(false, StatusCode.LOGINERROR, "用户名或密码错误");

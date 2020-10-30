@@ -17,6 +17,7 @@
         <module>mall_eureka</module>
         <module>mall_common</module>
         <module>mall_common_db</module>
+        <module>mall_user_oauth</module>
     </modules>
 
     <properties>
@@ -94,7 +95,7 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
-            <!--JWT(Json Web Token)登录支持-->
+            <!--JWT(Json Web TSUCCESSen)登录支持-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
