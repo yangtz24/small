@@ -1,5 +1,7 @@
 package com.ytz.mall.order.pojo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -43,6 +45,7 @@ public class OrderItem implements Serializable{
     @Column(name = "spu_id")
 	private Long spuId;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "sku_id")
 	private Long skuId;
 

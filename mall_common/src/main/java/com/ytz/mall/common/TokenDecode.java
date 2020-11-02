@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class TokenDecode {
 
-    private static String publicKey="";
+    private static String publicKey = "";
 
     /***
      * 获取用户信息

@@ -1,5 +1,6 @@
 package com.ytz.mall.order.config;
 
+import com.ytz.mall.common.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -28,11 +29,6 @@ import java.util.stream.Collectors;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    /**
-     * 公钥
-     */
-    private static final String PUBLIC_KEY = "public.key";
-
     /***
      * 定义JwtTokenStore
      * @param jwtAccessTokenConverter
@@ -56,11 +52,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     /**
      * 获取非对称加密公钥 Key
-     *
      * @return 公钥 Key
      */
     private String getPubKey() {
-        Resource resource = new ClassPathResource(PUBLIC_KEY);
+        Resource resource = new ClassPathResource(Constants.PUBLIC_KEY);
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(resource.getInputStream());
             BufferedReader br = new BufferedReader(inputStreamReader);
