@@ -12,6 +12,9 @@ import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @author yangt
+ */
 @Component
 public class CustomUserAuthenticationConverter extends DefaultUserAuthenticationConverter {
 
@@ -29,7 +32,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
         if(principal instanceof  UserJwt){
             userJwt = (UserJwt) principal;
         }else{
-            //refresh_tSUCCESSen默认不去调用userdetailService获取用户信息，这里我们手动去调用，得到 UserJwt
+            //refresh_tSoken默认不去调用userdetailService获取用户信息，这里我们手动去调用，得到 UserJwt
             UserDetails userDetails = userDetailsService.loadUserByUsername(name);
             userJwt = (UserJwt) userDetails;
         }

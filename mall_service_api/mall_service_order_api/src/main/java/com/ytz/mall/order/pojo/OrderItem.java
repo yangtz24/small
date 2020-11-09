@@ -107,7 +107,7 @@ public class OrderItem implements Serializable{
 	 * 是否退货,0:未退货，1：已退货
 	 */
     @Column(name = "is_return")
-	private String isReturn;
+	private Integer isReturn;
 
 
 }

@@ -1,5 +1,7 @@
 package com.ytz.mall.oauth.config;
+
 import com.ytz.mall.oauth.util.UserJwt;
+import com.ytz.mall.user.feign.UserFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -14,14 +16,20 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
+
 /*****
  * 自定义授权认证类
+ * @author yangt
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     ClientDetailsService clientDetailsService;
+
+    @Resource
+    private UserFeign userFeign;
 
     /****
      * 自定义授权认证
@@ -49,7 +57,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         //根据用户名查询用户信息
-        String pwd = new BCryptPasswordEncoder().encode("mall_shopping");
+        String pwd = userFeign.findByUsername(username).getData().getPassword();
         //创建User对象
         String permissions = "goods_list,sec_kill_list";
 

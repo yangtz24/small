@@ -1,11 +1,13 @@
 package com.ytz.mall.order.dao;
+
 import com.ytz.mall.order.pojo.Order;
+import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
-/****
- * @Author:admin
- * @Description:Order的Dao
- * @Date 2019/6/14 0:12
- *****/
+
+/**
+ * @author yangt
+ */
+@Repository
 public interface OrderMapper extends Mapper<Order> {
 }

@@ -57,7 +57,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * 令牌持久化存储接口
      */
     @Autowired
-    TokenStore tSUCCESSenStore;
+    TokenStore tokenStore;
 
     @Resource
     private CustomUserAuthenticationConverter customUserAuthenticationConverter;
@@ -69,18 +69,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("mallshopping")          //客户端id
-                .secret("mallshopping")                      //秘钥
-                .redirectUris("http://localhost")       //重定向地址
-                .accessTokenValiditySeconds(3600)          //访问令牌有效期
-                .refreshTokenValiditySeconds(3600)         //刷新令牌有效期
-                .authorizedGrantTypes(
-                        "authorization_code",          //根据授权码生成令牌
-                        "client_credentials",          //客户端认证
-                        "refresh_tSUCCESSen",                //刷新令牌
-                        "password")                     //密码方式认证
-                .scopes("app");                         //客户端范围，名称自定义，必填
+        clients.jdbc(dataSource).clients(clientDetails());
+//        clients.inMemory()
+//                .withClient("mall_shopping")          //客户端id
+//                .secret("mall_shopping")                      //秘钥
+//                .redirectUris("http://localhost")       //重定向地址
+//                .accessTokenValiditySeconds(3600)          //访问令牌有效期
+//                .refreshTokenValiditySeconds(3600)         //刷新令牌有效期
+//                .authorizedGrantTypes(
+//                        "authorization_code",          //根据授权码生成令牌
+//                        "client_credentials",          //客户端认证
+//                        "refresh_token",                //刷新令牌
+//                        "password")                     //密码方式认证
+//                .scopes("app");                         //客户端范围，名称自定义，必填
     }
 
     /***
@@ -95,7 +96,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //认证管理器
                 .authenticationManager(authenticationManager)
                 //令牌存储
-                .tokenStore(tSUCCESSenStore)
+                .tokenStore(tokenStore)
                 //用户信息service
                 .userDetailsService(userDetailsService);
     }
@@ -120,9 +121,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new KeyProperties();
     }
 
-    @Resource(name = "keyProp")
-    private KeyProperties keyProperties;
-
     /**
      * 客户端配置
      * @return
@@ -134,7 +132,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     @Autowired
-    public TokenStore tSUCCESSenStore(JwtAccessTokenConverter jwtaccessTokenConverter) {
+    public TokenStore tokenStore(JwtAccessTokenConverter jwtaccessTokenConverter) {
         return new JwtTokenStore(jwtaccessTokenConverter);
     }
 
@@ -146,15 +144,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtaccessTokenConverter(CustomUserAuthenticationConverter customUserAuthenticationConverter) {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        KeyProperties keyProperties = keyProperties();
         KeyPair keyPair = new KeyStoreKeyFactory(
                 //证书路径 mallshopping.jks
                 keyProperties.getKeyStore().getLocation(),
-                //证书秘钥 mallshopping
+                //证书秘钥 mall_shopping
                 keyProperties.getKeyStore().getSecret().toCharArray())
                 .getKeyPair(
-                        //证书别名 mallshopping
+                        //证书别名 mall_shopping
                         keyProperties.getKeyStore().getAlias(),
-                        //证书密码 mallshopping
+                        //证书密码 mall_shopping
                         keyProperties.getKeyStore().getPassword().toCharArray());
         converter.setKeyPair(keyPair);
         //配置自定义的CustomUserAuthenticationConverter

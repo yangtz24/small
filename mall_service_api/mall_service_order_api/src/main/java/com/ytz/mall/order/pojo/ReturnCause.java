@@ -32,10 +32,10 @@ public class ReturnCause implements Serializable{
 	private Integer seq;
 
 	/**
-	 * 是否启用
+	 * 是否启用 0是 1否
 	 */
     @Column(name = "status")
-	private String status;
+	private Integer status;
 
 
 }

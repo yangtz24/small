@@ -27,11 +27,11 @@ spring:
 #            - Host=cloud.mall.com**  # 域名规则配置
             - Path=/**  # 请求路径
            #请求数限流 名字不能随便写 ，使用默认的facatory
-            - name: RequestRateLimiter
-              args:
-                key-resolver: "#{@ipKeyResolver}"  # 用户的唯一标识
-                redis-rate-limiter.replenishRate: 10  # 每秒有1个请求
-                redis-rate-limiter.burstCapacity: 30   # 并发4个请求
+#            - name: RequestRateLimiter
+#              args:
+#                key-resolver: "#{@ipKeyResolver}"  # 用户的唯一标识
+#                redis-rate-limiter.replenishRate: 10  # 每秒有1个请求
+#                redis-rate-limiter.burstCapacity: 30   # 并发4个请求
         - id: mall_user_route
           uri: http://127.0.0.1:18086
           predicates:

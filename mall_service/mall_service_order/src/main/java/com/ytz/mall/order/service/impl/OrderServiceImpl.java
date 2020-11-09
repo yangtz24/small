@@ -2,8 +2,12 @@ package com.ytz.mall.order.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ytz.mall.common.Constants;
+import com.ytz.mall.common.IdWorker;
+import com.ytz.mall.common.RedisService;
 import com.ytz.mall.order.dao.OrderMapper;
 import com.ytz.mall.order.pojo.Order;
+import com.ytz.mall.order.pojo.OrderItem;
 import com.ytz.mall.order.service.OrderService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,6 +15,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /****
  * @Author:admin
@@ -22,6 +27,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private OrderMapper orderMapper;
+
+    @Resource
+    private IdWorker idWorker;
+
+    @Resource
+    private RedisService redisService;
 
 
     /**
@@ -195,8 +206,8 @@ public class OrderServiceImpl implements OrderService {
      * @param id
      */
     @Override
-    public void delete(String id){
-        orderMapper.deleteByPrimaryKey(id);
+    public int delete(String id){
+        return orderMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -204,17 +215,34 @@ public class OrderServiceImpl implements OrderService {
      * @param order
      */
     @Override
-    public void update(Order order){
-        orderMapper.updateByPrimaryKey(order);
+    public int update(Order order){
+        return orderMapper.updateByPrimaryKey(order);
     }
 
     /**
-     * 增加Order
+     * 创建Order
      * @param order
      */
     @Override
-    public void add(Order order){
-        orderMapper.insert(order);
+    public int add(Order order){
+
+        // 1、创建订单入库
+        order.setOrderId(String.valueOf(idWorker.nextId()));
+
+        // 从购物车中获取订单列表信息
+        Map<Object, Object> map = redisService.hmget(Constants.CART + order.getUsername());
+        map.forEach((key, val) -> {
+            Long productId = (Long) key;
+            OrderItem orderItem = (OrderItem) val;
+
+            System.out.println(orderItem);
+        });
+
+
+        // 2、调用商品服务减库存
+        // 3、增加用户的积分
+
+       return orderMapper.insert(order);
     }
 
     /**

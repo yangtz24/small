@@ -39,20 +39,23 @@ public interface OrderService {
     /***
      * 删除Order
      * @param id
+     * @return
      */
-    void delete(String id);
+    int delete(String id);
 
     /***
      * 修改Order数据
      * @param order
+     * @return
      */
-    void update(Order order);
+    int update(Order order);
 
     /***
      * 新增Order
      * @param order
+     * @return
      */
-    void add(Order order);
+    int add(Order order);
 
     /**
      * 根据ID查询Order

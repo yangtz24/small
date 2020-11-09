@@ -71,16 +71,16 @@ public class ReturnOrder implements Serializable{
 	private BigDecimal returnMoney;
 
 	/**
-	 * 是否退运费
+	 * 是否退运费 0是1否
 	 */
     @Column(name = "is_return_freight")
-	private String isReturnFreight;
+	private Integer isReturnFreight;
 
 	/**
-	 * 申请状态
+	 * 申请状态  0:未申请 1:正在审核 2:申请成功 3：拒绝
 	 */
     @Column(name = "status")
-	private String status;
+	private Integer status;
 
 	/**
 	 * 处理时间

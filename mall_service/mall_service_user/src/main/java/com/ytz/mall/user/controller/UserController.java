@@ -154,6 +154,22 @@ public class UserController {
     }
 
     /***
+     * 根据用户名查询User数据
+     * @param username
+     * @return
+     */
+    @ApiOperation("查询单个")
+    @GetMapping("detail/{username}")
+    public Result<User> findByUsername(@PathVariable String username) {
+        //调用UserService实现根据主键查询User
+        User user = userService.findByName(username);
+        if (ObjectUtil.isNotEmpty(user)) {
+            return new Result<>(true, StatusCode.SUCCESS, "查询成功", user);
+        }
+        return new Result<>(false,StatusCode.ERROR,"查询失败", user);
+    }
+
+    /***
      * 查询User全部数据
      * @return
      */
@@ -194,14 +210,14 @@ public class UserController {
             info.put("userName",username);
 
             //1.生成令牌
-            String tSUCCESSen = JwtUtil.createJWT(UUID.randomUUID().toString(), JSON.toJSONString(info), null);
+            String token = JwtUtil.createJWT(UUID.randomUUID().toString(), JSON.toJSONString(info), null);
             //2.设置cookie中
-            Cookie cookie = new Cookie("Authorization",tSUCCESSen);
+            Cookie cookie = new Cookie("Authorization",token);
             response.addCookie(cookie);
             //3.设置头文件中
-            response.setHeader("Authorization",tSUCCESSen);
+            response.setHeader("Authorization",token);
 
-            return new Result<>(true, StatusCode.SUCCESS, "成功", tSUCCESSen);
+            return new Result<>(true, StatusCode.SUCCESS, "成功", token);
         }else{
             //失败
             return new Result<>(false, StatusCode.LOGINERROR, "用户名或密码错误");

@@ -29,4 +29,15 @@ public class Constants {
      */
     public static final String PUBLIC_KEY = "public.key";
 
+    /**
+     * 有效期为 60 * 60 *1000  一个小时
+     */
+
+    public static final Long JWT_TTL = 3600000L;
+
+    /**
+     * Jwt令牌信息
+     */
+    public static final String JWT_KEY = "mall_shopping";
+
 }

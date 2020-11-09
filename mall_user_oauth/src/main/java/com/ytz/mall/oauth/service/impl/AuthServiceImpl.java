@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthToken login(String username, String password, String clientId, String clientSecret) {
         //申请令牌
-        return applyTSUCCESSen(username,password,clientId, clientSecret);
+        return applyToken(username,password,clientId, clientSecret);
     }
 
 
@@ -57,14 +57,14 @@ public class AuthServiceImpl implements AuthService {
      * @param clientSecret：配置文件中的秘钥
      * @return
      */
-    private AuthToken applyTSUCCESSen(String username, String password, String clientId, String clientSecret) {
+    private AuthToken applyToken(String username, String password, String clientId, String clientSecret) {
         //选中认证服务的地址
-        ServiceInstance serviceInstance = loadBalancerClient.choose("user-auth");
+        ServiceInstance serviceInstance = loadBalancerClient.choose("AUTH-SERVICE");
         if (serviceInstance == null) {
             throw new RuntimeException("找不到对应的服务");
         }
         //获取令牌的url
-        String path = serviceInstance.getUri().toString() + "/oauth/tSUCCESSen";
+        String path = serviceInstance.getUri().toString() + "/oauth/token";
         //定义body
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         //授权方式
@@ -95,23 +95,23 @@ public class AuthServiceImpl implements AuthService {
         } catch (RestClientException e) {
             throw new RuntimeException(e);
         }
-        if(map == null || map.get("access_tSUCCESSen") == null || map.get("refresh_tSUCCESSen") == null || map.get("jti") == null) {
+        if(map == null || map.get("access_token") == null || map.get("refresh_token") == null || map.get("jti") == null) {
             //jti是jwt令牌的唯一标识作为用户身份令牌
             throw new RuntimeException("创建令牌失败！");
         }
 
         //将响应数据封装成AuthTSUCCESSen对象
-        AuthToken authTSUCCESSen = new AuthToken();
+        AuthToken authToken = new AuthToken();
         //访问令牌(jwt)
-        String accessToken = (String) map.get("access_tSUCCESSen");
+        String accessToken = (String) map.get("access_token");
         //刷新令牌(jwt)
-        String refreshToken = (String) map.get("refresh_tSUCCESSen");
+        String refreshToken = (String) map.get("refresh_token");
         //jti，作为用户的身份标识
-        String jwtTSUCCESSen= (String) map.get("jti");
-        authTSUCCESSen.setJti(jwtTSUCCESSen);
-        authTSUCCESSen.setaccessToken(accessToken);
-        authTSUCCESSen.setrefreshToken(refreshToken);
-        return authTSUCCESSen;
+        String jwtToken= (String) map.get("jti");
+        authToken.setJti(jwtToken);
+        authToken.setaccessToken(accessToken);
+        authToken.setrefreshToken(refreshToken);
+        return authToken;
     }
 
 

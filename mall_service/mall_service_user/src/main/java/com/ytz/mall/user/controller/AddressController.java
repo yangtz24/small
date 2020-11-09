@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
 import com.ytz.mall.common.Result;
 import com.ytz.mall.common.StatusCode;
+import com.ytz.mall.common.TokenDecode;
 import com.ytz.mall.user.pojo.Address;
 import com.ytz.mall.user.service.AddressService;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -27,6 +29,9 @@ public class AddressController {
 
     @Autowired
     private AddressService addressService;
+
+    @Resource
+    private TokenDecode tokenDecode;
 
     /***
      * Address分页条件搜索实现
@@ -159,5 +164,17 @@ public class AddressController {
             return new Result<>(true, StatusCode.SUCCESS,"查询成功", all) ;
         }
         return new Result<>(false,StatusCode.ERROR,"查询失败", all);
+    }
+
+
+    @ApiOperation("根据用户名查询地址")
+    @GetMapping("username")
+    public Result<List<Address>> findByUsername(){
+        String username = tokenDecode.getUserInfo().get("username");
+        List<Address> addressList = addressService.findByUserName(username);
+        if (CollUtil.isNotEmpty(addressList)) {
+            return new Result<>(true, StatusCode.SUCCESS,"查询成功", addressList) ;
+        }
+        return new Result<>(false,StatusCode.ERROR,"查询失败", addressList);
     }
 }

@@ -1,15 +1,15 @@
 package com.ytz.mall.order.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ytz.mall.order.dao.OrderConfigMapper;
 import com.ytz.mall.order.pojo.OrderConfig;
 import com.ytz.mall.order.service.OrderConfigService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /****
@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class OrderConfigServiceImpl implements OrderConfigService {
 
-    @Resource
+    @Autowired
     private OrderConfigMapper orderConfigMapper;
 
 

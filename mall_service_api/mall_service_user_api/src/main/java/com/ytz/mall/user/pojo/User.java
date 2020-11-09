@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author yangt
+ */
 @Table(name="tb_user")
 @Data
 public class User implements Serializable{

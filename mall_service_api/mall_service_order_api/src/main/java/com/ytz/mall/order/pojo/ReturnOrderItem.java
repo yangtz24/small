@@ -91,7 +91,7 @@ public class ReturnOrderItem implements Serializable{
 	 * 重量
 	 */
     @Column(name = "weight")
-	private Integer weight;
+	private BigDecimal weight;
 
 
 }

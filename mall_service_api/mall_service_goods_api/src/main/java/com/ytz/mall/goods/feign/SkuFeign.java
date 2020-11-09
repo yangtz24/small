@@ -20,7 +20,7 @@ public interface SkuFeign {
      * @return
      */
     @GetMapping("status/{status}")
-    Result<List<Sku>> findByStatus(@PathVariable(name="status") String status);
+    Result<List<Sku>> findByStatus(@PathVariable(value = "status") String status);
 
 
     /**
@@ -37,5 +37,5 @@ public interface SkuFeign {
      * @return
      */
     @GetMapping("{id}")
-    Result<Sku> findById(@PathVariable Long id);
+    Result<Sku> findById(@PathVariable(value = "id") Long id);
 }

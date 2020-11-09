@@ -1,26 +1,27 @@
 package com.ytz.mall.order.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ytz.mall.order.dao.PreferentialMapper;
 import com.ytz.mall.order.pojo.Preferential;
 import com.ytz.mall.order.service.PreferentialService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-/****
- * @Author:admin
- * @Description:Preferential业务层接口实现类
- * @Date 2019/6/14 0:16
- *****/
+
+/**
+ * @author yangt
+ */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class PreferentialServiceImpl implements PreferentialService {
 
-    @Autowired
+    @Resource
     private PreferentialMapper preferentialMapper;
 
 
@@ -103,8 +104,8 @@ public class PreferentialServiceImpl implements PreferentialService {
                     criteria.andEqualTo("endTime",preferential.getEndTime());
             }
             // 状态
-            if(!StringUtils.isEmpty(preferential.getState())){
-                    criteria.andEqualTo("state",preferential.getState());
+            if(!StringUtils.isEmpty(preferential.getStatus())){
+                    criteria.andEqualTo("status",preferential.getStatus());
             }
             // 类型1不翻倍 2翻倍
             if(!StringUtils.isEmpty(preferential.getType())){

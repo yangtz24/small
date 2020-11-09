@@ -43,19 +43,19 @@ public class OrderLog implements Serializable{
 	 * 订单状态,0未完成，1已完成，2，已退货
 	 */
 	@Column(name = "order_status")
-	private String orderStatus;
+	private Integer orderStatus;
 
 	/**
-	 * 付款状态
+	 * 付款状态  0:未支付，1：已支付，2：支付失败
 	 */
     @Column(name = "pay_status")
-	private String payStatus;
+	private Integer payStatus;
 
 	/**
-	 * 发货状态
+	 * 发货状态 0：未发货 1：已发货
 	 */
 	@Column(name = "consign_status")
-	private String consignStatus;
+	private Integer consignStatus;
 
 	/**
 	 * 备注

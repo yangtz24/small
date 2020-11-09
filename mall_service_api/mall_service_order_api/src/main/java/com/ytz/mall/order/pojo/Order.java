@@ -146,7 +146,7 @@ public class Order implements Serializable{
 	 * 订单来源：1:web，2：app，3：微信公众号，4：微信小程序  5 H5手机页面
 	 */
     @Column(name = "source_type")
-	private String sourceType;
+	private Integer sourceType;
 
 	/**
 	 * 交易流水号
@@ -158,23 +158,23 @@ public class Order implements Serializable{
 	 * 订单状态,0:未完成,1:已完成，2：已退货
 	 */
     @Column(name = "order_status")
-	private String orderStatus;
+	private Integer orderStatus;
 
 	/**
 	 * 支付状态,0:未支付，1：已支付，2：支付失败
 	 */
     @Column(name = "pay_status")
-	private String payStatus;
+	private Integer payStatus;
 
 	/**
 	 * 发货状态,0:未发货，1：已发货，2：已收货
 	 */
     @Column(name = "consign_status")
-	private String consignStatus;
+	private Integer consignStatus;
 
 	/**
-	 * 是否删除
+	 * 是否删除 0未删除 1已删除
 	 */
     @Column(name = "is_delete")
-	private String isDelete;
+	private Integer isDelete;
 }

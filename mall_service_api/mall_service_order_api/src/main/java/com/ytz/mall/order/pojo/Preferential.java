@@ -52,16 +52,16 @@ public class Preferential implements Serializable{
 	private Date endTime;
 
 	/**
-	 * 状态
+	 * 状态 0：可用 1：不可用
 	 */
-	@Column(name = "state")
-	private String state;
+	@Column(name = "status")
+	private Integer status;
 
 	/**
-	 * 类型1不翻倍 2翻倍
+	 * 类型 1不翻倍 2翻倍
 	 */
     @Column(name = "type")
-	private String type;
+	private Integer type;
 
 
 }

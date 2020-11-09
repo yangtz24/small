@@ -13,17 +13,6 @@ import java.util.Date;
 public class JwtUtil {
 
     /**
-     * 有效期为 60 * 60 *1000  一个小时
-      */
-
-    public static final Long JWT_TTL = 3600000L;
-
-    /**
-     * Jwt令牌信息
-     */
-    public static final String JWT_KEY = "bryantJava";
-
-    /**
      * 生成令牌
      * @param id
      * @param subject
@@ -41,7 +30,7 @@ public class JwtUtil {
 
         //如果令牌有效期为null，则默认设置有效期1小时
         if (ttlMillis == null) {
-            ttlMillis = JwtUtil.JWT_TTL;
+            ttlMillis = Constants.JWT_TTL;
         }
 
         //令牌过期时间设置
@@ -68,7 +57,7 @@ public class JwtUtil {
      * @return
      */
     public static SecretKey generalKey() {
-        byte[] encodedKey = Base64.getEncoder().encode(JwtUtil.JWT_KEY.getBytes());
+        byte[] encodedKey = Base64.getEncoder().encode(Constants.JWT_KEY.getBytes());
         SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
         return key;
     }

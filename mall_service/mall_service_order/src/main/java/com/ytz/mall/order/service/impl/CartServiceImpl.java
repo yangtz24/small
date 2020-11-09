@@ -1,7 +1,7 @@
 package com.ytz.mall.order.service.impl;
 
 import com.ytz.mall.common.Constants;
-import com.ytz.mall.common.RedisUtils;
+import com.ytz.mall.common.RedisService;
 import com.ytz.mall.common.Result;
 import com.ytz.mall.goods.feign.SkuFeign;
 import com.ytz.mall.goods.feign.SpuFeign;
@@ -33,14 +33,14 @@ public class CartServiceImpl implements CartService {
     private SpuFeign spuFeign;
 
     @Resource
-    private RedisUtils redisUtils;
+    private RedisService redisService;
 
     @Override
     public void add(Long id, Integer num, String username) {
 
         if(num<=0){
             //删除掉原来的商品
-            redisUtils.hdel(Constants.CART + username, id);
+            redisService.hdel(Constants.CART + username, id);
             return;
         }
 
@@ -79,13 +79,13 @@ public class CartServiceImpl implements CartService {
             //商品的图片dizhi
             orderItem.setImage(data.getImage());
             //4.数据添加到redis中  key:用户名 field:sku的ID  value:购物车数据(order_item)
-            redisUtils.hset(Constants.CART + username, id, orderItem);
+            redisService.hset(Constants.CART + username, id, orderItem);
         }
 
     }
 
     @Override
     public Map<Object, Object> list(String username) {
-        return redisUtils.hmget(Constants.CART + username);
+        return redisService.hmget(Constants.CART + username);
     }
 }

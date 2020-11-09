@@ -20,6 +20,6 @@ public interface UserMapper extends Mapper<User> {
      * @param userName
      * @return
      */
-    @Select("SELECT * FROM TB_USER WHERE USERNAME = #{userName}")
+    @Select("SELECT * FROM tb_user WHERE USERNAME = #{userName}")
     User findByUserName(String userName);
 }

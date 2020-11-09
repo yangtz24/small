@@ -37,13 +37,6 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        //如果是登录、goods等开放的微服务[这里的goods部分开放],则直接放行,这里不做完整演示，完整演示需要设计一套权限系统
-//        if (path.startsWith("/api/user/login") || path.startsWith("/api/brand/search/")) {
-//            //放行
-//            Mono<Void> filter = chain.filter(exchange);
-//            return filter;
-//        }
-
         //获取头文件中的令牌信息
         String token = request.getHeaders().getFirst(Constants.AUTHORIZATION);
 

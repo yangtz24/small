@@ -5,13 +5,20 @@ import com.ytz.mall.common.Result;
 import com.ytz.mall.common.StatusCode;
 import com.ytz.mall.oauth.service.LoginService;
 import com.ytz.mall.oauth.util.AuthToken;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author yangt
+ */
+@Api(tags = "UserLoginController", description = "登录Controller")
 @RestController
-@RequestMapping("user")
+@RequestMapping("user/auth")
 public class UserLoginController {
 
     @Autowired
@@ -36,15 +43,16 @@ public class UserLoginController {
      * @param password
      * @return
      */
-    @RequestMapping("login")
+    @ApiOperation("登录认证")
+    @PostMapping("login")
     public Result<AuthToken> login(String username, String password) {
         //登录 之后生成令牌的数据返回
-        AuthToken authTSUCCESSen = loginService.login(username, password, clientId, clientSecret, GRAND_TYPE);
+        AuthToken authToken = loginService.login(username, password, clientId, clientSecret, GRAND_TYPE);
 
-        if (ObjectUtil.isNotEmpty(authTSUCCESSen)) {
-            return new Result<>(true, StatusCode.SUCCESS,"令牌生成成功",authTSUCCESSen);
+        if (ObjectUtil.isNotEmpty(authToken)) {
+            return new Result<>(true, StatusCode.SUCCESS,"令牌生成成功",authToken);
         }
-        return new Result<>(false, StatusCode.ERROR,"令牌生成失败",authTSUCCESSen);
+        return new Result<>(false, StatusCode.ERROR,"令牌生成失败",authToken);
 
     }
 

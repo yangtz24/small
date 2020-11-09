@@ -27,14 +27,14 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:7001/eureka
 auth:
-  ttl: 3600  #tSUCCESSen存储到redis的过期时间
-  clientId: mallshopping
-  clientSecret: mallshopping
+  ttl: 3600  #token存储到redis的过期时间
+  clientId: mall_shopping
+  clientSecret: mall_shopping
   cookieDomain: localhost
   cookieMaxAge: -1
 encrypt:
   key-store:
-    location: classpath:/mallshopping.jks
-    secret: mallshopping
-    alias: mallshopping
-    password: mallshopping
+    secret: mall_shopping
+    alias: mall_shopping
+    password: mall_shopping
+    location: classpath:mallshopping.jks

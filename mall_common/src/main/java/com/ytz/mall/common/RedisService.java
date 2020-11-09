@@ -1,7 +1,6 @@
 package com.ytz.mall.common;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -11,14 +10,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ClassName: RedisUtils
+ * @ClassName: RedisService
  * @Description: TODO  操作redis 工具类
  * @author: basketBoy
  * @date: 2020/6/2
  * @Version: V1.0
  */
-@Component
-public class RedisUtils {
+public class RedisService {
 
     @Resource(name = "myRedisTemplate")
     private RedisTemplate<String, Object> redisTemplate;
