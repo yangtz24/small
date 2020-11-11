@@ -159,7 +159,7 @@ public class UserController {
      * @return
      */
     @ApiOperation("查询单个")
-    @GetMapping("detail/{username}")
+    @GetMapping(value = {"detail/{username}", "load/{username}"})
     public Result<User> findByUsername(@PathVariable String username) {
         //调用UserService实现根据主键查询User
         User user = userService.findByName(username);

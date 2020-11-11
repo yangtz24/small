@@ -132,8 +132,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     @Autowired
-    public TokenStore tokenStore(JwtAccessTokenConverter jwtaccessTokenConverter) {
-        return new JwtTokenStore(jwtaccessTokenConverter);
+    public TokenStore tokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+        return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
     /**
@@ -142,7 +142,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @return
      */
     @Bean
-    public JwtAccessTokenConverter jwtaccessTokenConverter(CustomUserAuthenticationConverter customUserAuthenticationConverter) {
+    public JwtAccessTokenConverter jwtAccessTokenConverter(CustomUserAuthenticationConverter customUserAuthenticationConverter) {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         KeyProperties keyProperties = keyProperties();
         KeyPair keyPair = new KeyStoreKeyFactory(

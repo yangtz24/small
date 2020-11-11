@@ -1,8 +1,6 @@
 package com.ytz.mall.gateway.filter;
 
 import com.ytz.mall.common.Constants;
-import com.ytz.mall.common.JwtUtil;
-import io.jsonwebtoken.Claims;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -40,27 +38,40 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         //获取头文件中的令牌信息
         String token = request.getHeaders().getFirst(Constants.AUTHORIZATION);
 
+        boolean isToken = true;
+
         //如果头文件中没有，则从请求参数中获取
         if (StringUtils.isEmpty(token)) {
             token = request.getQueryParams().getFirst(Constants.AUTHORIZATION);
+            isToken = false;
         }
 
         //如果为空，则输出错误代码
         if (StringUtils.isEmpty(token)) {
-            //设置方法不允许被访问，405错误代码
-            response.setStatusCode(HttpStatus.METHOD_NOT_ALLOWED);
-            return response.setComplete();
-        }
-
-        //解析令牌数据
-        try {
-            Claims claims = JwtUtil.parseJWT(token);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //解析失败，响应401错误
+            //设置方法不允许被访问，401
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
+        } else {
+            if (!isToken) {
+                if (!token.startsWith("bearer ") && !token.startsWith("Bearer ")) {
+                    token = "Bearer " + token;
+                }
+                //添加头信 息 传递给 各个微服务()
+                request.mutate().header(Constants.AUTHORIZATION,"Bearer "+ token);
+            }
         }
+
+
+
+//        //解析令牌数据
+//        try {
+////            Claims claims = JwtUtil.parseJWT(token);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //解析失败，响应401错误
+//            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return response.setComplete();
+//        }
 
         //放行
         return chain.filter(exchange);

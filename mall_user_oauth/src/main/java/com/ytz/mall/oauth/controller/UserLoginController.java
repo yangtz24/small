@@ -9,7 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "UserLoginController", description = "登录Controller")
 @RestController
-@RequestMapping("user/auth")
+@RequestMapping("user/oauth")
 public class UserLoginController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class UserLoginController {
      * @return
      */
     @ApiOperation("登录认证")
-    @PostMapping("login")
+    @GetMapping("login")
     public Result<AuthToken> login(String username, String password) {
         //登录 之后生成令牌的数据返回
         AuthToken authToken = loginService.login(username, password, clientId, clientSecret, GRAND_TYPE);

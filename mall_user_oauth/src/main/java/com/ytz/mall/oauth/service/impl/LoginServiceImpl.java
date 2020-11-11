@@ -3,7 +3,6 @@ package com.ytz.mall.oauth.service.impl;
 import com.ytz.mall.oauth.service.LoginService;
 import com.ytz.mall.oauth.util.AuthToken;
 import com.ytz.mall.oauth.util.CookieUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -33,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private RestTemplate restTemplate;
 
-    @Autowired
+    @Resource
     private LoadBalancerClient loadBalancerClient;
 
     @Value("${auth.cookieDomain}")
@@ -50,12 +49,12 @@ public class LoginServiceImpl implements LoginService {
 
         //1.定义url (申请令牌的url)
         //参数 : 微服务的名称spring.appplication指定的名称
-        ServiceInstance choose = loadBalancerClient.choose("AUTH-SERVICE");
-        String url =choose.getUri().toString()+"/oauth/tSUCCESSen";
+        ServiceInstance choose = loadBalancerClient.choose("OAUTH-SERVICE");
+        String url =choose.getUri().toString()+"/oauth/token";
 
         //2.定义头信息 (有client id 和client secr)
         MultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
-        headers.add("Authorization","Basic "+Base64.getEncoder().encodeToString(new String(clientId+":"+clientSecret).getBytes()));
+        headers.add("Authorization","Basic "+Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes()));
         //3. 定义请求体  有授权模式 用户的名称 和密码
         MultiValueMap<String,String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type",grandType);
@@ -68,24 +67,25 @@ public class LoginServiceImpl implements LoginService {
          * 参数2  指定要发送的请求的方法 PSOT
          * 参数3 指定请求实体(包含头和请求体数据)
          */
-        HttpEntity<MultiValueMap> requestentity = new HttpEntity<MultiValueMap>(formData,headers);
+        HttpEntity<MultiValueMap> requestEntity = new HttpEntity<>(formData, headers);
 
-        ResponseEntity<Map> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestentity, Map.class);
+        ResponseEntity<Map> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
         //5.接收到返回的响应(就是:令牌的信息)
-        Map<String, Object> body = responseEntity.getBody();
+        Map body = responseEntity.getBody();
 
         //封装一次.
 
         AuthToken authToken = new AuthToken();
         //访问令牌(jwt)
+        assert body != null;
         String accessToken = (String) body.get("access_token");
         //刷新令牌(jwt)
         String refreshToken = (String) body.get("refresh_token");
         //jti，作为用户的身份标识
-        String jwtTSUCCESSen= (String) body.get("jti");
+        String jwtToken= (String) body.get("jti");
 
 
-        authToken.setJti(jwtTSUCCESSen);
+        authToken.setJti(jwtToken);
         authToken.setaccessToken(accessToken);
         authToken.setrefreshToken(refreshToken);
 
@@ -96,9 +96,9 @@ public class LoginServiceImpl implements LoginService {
         return authToken;
     }
 
-    private void savecookie(String tSUCCESSen){
+    private void savecookie(String token){
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-        CookieUtil.addcookie(response,cookieDomain,"/","Authorization",tSUCCESSen,cookieMaxAge,false);
+        CookieUtil.addcookie(response,cookieDomain,"/","Authorization",token,cookieMaxAge,false);
     }
 
 }

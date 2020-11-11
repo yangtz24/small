@@ -48,7 +48,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 //秘钥
                 String clientSecret = clientDetails.getClientSecret();
                 //静态方式
-                return new User(username,new BCryptPasswordEncoder().encode(clientSecret), AuthorityUtils.commaSeparatedStringToAuthorityList(""));
+//                return new User(username,new BCryptPasswordEncoder().encode(clientSecret), AuthorityUtils.commaSeparatedStringToAuthorityList(""));
+
+                //数据库查找方式
+                return new User(username,clientSecret, AuthorityUtils.commaSeparatedStringToAuthorityList(""));
             }
         }
 
@@ -58,10 +61,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         //根据用户名查询用户信息
         String pwd = userFeign.findByUsername(username).getData().getPassword();
-        //创建User对象
+//        创建User对象
         String permissions = "goods_list,sec_kill_list";
 
 
         return new UserJwt(username,pwd,AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
+    }
+
+    public static void main(String[] args) {
+        String ms = new BCryptPasswordEncoder().encode("mall_shopping");
+        System.out.println(ms);
     }
 }

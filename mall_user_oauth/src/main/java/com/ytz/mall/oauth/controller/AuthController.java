@@ -78,10 +78,10 @@ public class AuthController {
 
     /***
      * 将令牌存储到cookie
-     * @param tSUCCESSen
+     * @param token
      */
-    private void savecookie(String tSUCCESSen){
+    private void savecookie(String token){
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-        CookieUtil.addcookie(response,cookieDomain,"/","Authorization",tSUCCESSen,cookieMaxAge,false);
+        CookieUtil.addcookie(response,cookieDomain,"/","Authorization",token,cookieMaxAge,false);
     }
 }

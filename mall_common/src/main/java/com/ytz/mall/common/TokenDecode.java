@@ -16,6 +16,9 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * @author yangt
+ */
 public class TokenDecode {
 
     private static String publicKey = "";

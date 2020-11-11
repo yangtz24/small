@@ -20,12 +20,12 @@ spring:
                 - PUT
                 - DELETE
       routes:
-        - id: mall_goods_route  # 唯一标识符
-          uri: http://127.0.0.1:18001 # 路由的微服务地址uri
+#        - id: mall_goods_route  # 唯一标识符
+#          uri: http://127.0.0.1:18001 # 路由的微服务地址uri
 #           路由配置规则
-          predicates:
+#          predicates:
 #            - Host=cloud.mall.com**  # 域名规则配置
-            - Path=/**  # 请求路径
+#             - Path=/**  # 请求路径
            #请求数限流 名字不能随便写 ，使用默认的facatory
 #            - name: RequestRateLimiter
 #              args:

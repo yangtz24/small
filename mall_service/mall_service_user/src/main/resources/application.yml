@@ -8,6 +8,11 @@ spring:
     url: jdbc:mysql://139.155.56.176:3306/shop_mall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: Wo123456
+  redis:
+    host: 123.56.143.183
+    port: 6379
+    password: redis123
+    database: 2
 eureka:
   client:
     service-url:

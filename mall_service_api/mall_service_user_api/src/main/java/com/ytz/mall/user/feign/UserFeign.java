@@ -23,6 +23,6 @@ public interface UserFeign {
      * @param username
      * @return
      */
-    @GetMapping("detail/{username}")
+    @GetMapping("load/{username}")
     Result<User> findByUsername(@PathVariable(value = "username") String username);
 }

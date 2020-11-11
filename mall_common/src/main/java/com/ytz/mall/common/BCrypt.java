@@ -383,10 +383,10 @@ public class BCrypt {
 	 * @return	base64-encoded string
 	 * @exception IllegalArgumentException if the length is invalid
 	 */
-	private static String encode_base64(byte d[], int len)
+	private static String encodeBase64(byte d[], int len)
 		throws IllegalArgumentException {
 		int off = 0;
-		StringBuffer rs = new StringBuffer();
+		StringBuilder rs = new StringBuilder();
 		int c1, c2;
 
 		if (len <= 0 || len > d.length) {
@@ -708,8 +708,8 @@ public class BCrypt {
 		}
 		rs.append(Integer.toString(rounds));
 		rs.append("$");
-		rs.append(encode_base64(saltb, saltb.length));
-		rs.append(encode_base64(hashed,
+		rs.append(encodeBase64(saltb, saltb.length));
+		rs.append(encodeBase64(hashed,
 		    bf_crypt_ciphertext.length * 4 - 1));
 		return rs.toString();
 	}
@@ -738,7 +738,7 @@ public class BCrypt {
 		}
 		rs.append(Integer.toString(log_rounds));
 		rs.append("$");
-		rs.append(encode_base64(rnd, rnd.length));
+		rs.append(encodeBase64(rnd, rnd.length));
 		return rs.toString();
 	}
 

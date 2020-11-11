@@ -30,6 +30,8 @@ auth:
   ttl: 3600  #token存储到redis的过期时间
   clientId: mall_shopping
   clientSecret: mall_shopping
+  accessTokenUri: http://localhost:9001/oauth/token
+  userAuthorizationUri: http://localhost:9001/oauth/authorize
   cookieDomain: localhost
   cookieMaxAge: -1
 encrypt:
@@ -37,4 +39,4 @@ encrypt:
     secret: mall_shopping
     alias: mall_shopping
     password: mall_shopping
-    location: classpath:mallshopping.jks
+    location: classpath:/mallshopping.jks
